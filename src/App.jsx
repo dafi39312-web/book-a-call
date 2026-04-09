@@ -235,7 +235,7 @@ export default function App() {
             </div>
             <div style={{display:"flex",gap:"8px",alignItems:"center"}}>
               <div style={S.sw}><button style={S.lb(lang==="it")} onClick={()=>setLang("it")}>IT</button><button style={S.lb(lang==="en")} onClick={()=>setLang("en")}>EN</button></div>
-              <div style={S.sw}><button style={S.vb(view==="public")} onClick={()=>setView("public")}>{t.public}</button><button style={S.vb(view==="admin")} onClick={()=>setView("admin")}>{t.admin}</button></div>
+    
             </div>
           </div>
 
