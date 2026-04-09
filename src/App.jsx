@@ -161,7 +161,8 @@ export default function App() {
 
     setBookingState("booking");
     const newBooking = {id:Date.now(),date:toLocalDateStr(selectedDate),slot:selectedSlot,...formData,createdAt:new Date().toISOString()};
-    await saveBooking(newBooking);
+    try{await Promise.race([saveBooking(newBooking),new Promise((_,r)=>setTimeout(()=>r("timeout"),8000))]);}catch(err){console.error("Save error:",err);}
+    try{const svcLabel=t.services.find(s=>s.id===newBooking.service)?.label||newBooking.service;sendNotificationEmail(newBooking,svcLabel);}catch(err){console.error("Email error:",err);}
     setConfirmedBooking(newBooking);
     setBookingState("done");
     setNotification({data:newBooking});
