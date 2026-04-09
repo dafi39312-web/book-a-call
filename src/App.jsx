@@ -86,7 +86,7 @@ const T = {
 /* ───────── HELPERS ───────── */
 const toLocalDateStr = (d) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 const isToday = (d) => { const t=new Date(); return d.getDate()===t.getDate()&&d.getMonth()===t.getMonth()&&d.getFullYear()===t.getFullYear(); };
-const isPast = (d) => { const t=new Date(); t.setHours(0,0,0,0); const c=new Date(d); c.setHours(0,0,0,0); return c<t; };
+const isPast = (d) => { const t=new Date(); t.setHours(23,59,59,999); const c=new Date(d); c.setHours(23,59,59,999); return c<=t; };
 const isValidEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
 const generateSlots = (date, blocks) => {
