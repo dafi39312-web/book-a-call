@@ -1,5 +1,5 @@
 const EMAILJS_SERVICE_ID = "service_3a3s9ce";
-const EMAILJS_TEMPLATE_ID = "template_rhv6eg4";
+const EMAILJS_TEMPLATE_ID = "template_su6317o";
 const EMAILJS_PUBLIC_KEY = "_2ivuPWj1qbZERsZ_";
 
 let emailjsLoaded = false;
