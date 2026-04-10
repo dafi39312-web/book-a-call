@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { subscribeBlocks, saveBlock, removeBlockDb, subscribeBookings, saveBooking } from "./database";
+import { sendNotificationEmail } from "./emailService";
 
 /* ───────── CONFIG ───────── */
 const OWNER_EMAIL = "reddani03@gmail.com";
