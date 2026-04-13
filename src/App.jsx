@@ -279,8 +279,6 @@ export default function App() {
                   <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:"4px"}}>{renderCalendar()}</div>
                   <div style={{display:"flex",gap:"16px",marginTop:"16px",paddingTop:"16px",borderTop:"1px solid rgba(255,255,255,0.06)",flexWrap:"wrap"}}>
                     <div style={{display:"flex",alignItems:"center",gap:"6px",fontSize:"11px",color:"rgba(255,255,255,0.35)"}}><div style={{width:8,height:8,borderRadius:"50%",background:"#22c55e",boxShadow:"0 0 4px rgba(34,197,94,0.4)"}}/>{t.available}</div>
-                    <div style={{display:"flex",alignItems:"center",gap:"6px",fontSize:"11px",color:"rgba(255,255,255,0.35)"}}><div style={{width:8,height:8,borderRadius:"50%",background:"#CC0000"}}/>{t.bookings}</div>
-                    <div style={{display:"flex",alignItems:"center",gap:"6px",fontSize:"11px",color:"rgba(255,255,255,0.35)"}}><div style={{width:8,height:8,borderRadius:"50%",background:"rgba(204,0,0,0.4)"}}/>{t.today}</div>
                   </div>
                   <div style={{marginTop:"20px",padding:"16px",background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:"14px",textAlign:"center"}}>
                     <div style={{fontSize:"13px",color:"rgba(255,255,255,0.5)",marginBottom:"12px"}}>{t.noSlotsCta}</div>
