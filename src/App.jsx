@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { subscribeBlocks, saveBlock, removeBlockDb, subscribeBookings, saveBooking } from "./database";
-import { sendNotificationEmail } from "./emailService";
 
 /* ───────── CONFIG ───────── */
 const OWNER_EMAIL = "reddani03@gmail.com";
@@ -87,6 +86,9 @@ const T = {
 /* ───────── HELPERS ───────── */
 const toLocalDateStr = (d) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 const isToday = (d) => { const t=new Date(); return d.getDate()===t.getDate()&&d.getMonth()===t.getMonth()&&d.getFullYear()===t.getFullYear(); };
+const HOLIDAYS=["01-01","01-06","04-25","05-01","06-02","08-15","11-01","12-08","12-25","12-26"];
+const getEaster=(y)=>{const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),n=Math.floor((h+l-7*m+114)/31),p=(h+l-7*m+114)%31+1;return`${String(n).padStart(2,"0")}-${String(p).padStart(2,"0")}`;}
+const isHoliday=(d)=>{const md=`${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;if(HOLIDAYS.includes(md))return true;const e=getEaster(d.getFullYear());const em=parseInt(e.split("-")[0]),ed=parseInt(e.split("-")[1]);const easter=new Date(d.getFullYear(),em-1,ed);const easterMon=new Date(easter);easterMon.setDate(easter.getDate()+1);const emd=`${String(easterMon.getMonth()+1).padStart(2,"0")}-${String(easterMon.getDate()).padStart(2,"0")}`;return md===e||md===emd;};
 const isPast = (d) => { const t=new Date(); t.setHours(23,59,59,999); const c=new Date(d); c.setHours(23,59,59,999); return c<=t; };
 const isValidEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 
@@ -163,7 +165,6 @@ export default function App() {
     setBookingState("booking");
     const newBooking = {id:Date.now(),date:toLocalDateStr(selectedDate),slot:selectedSlot,...formData,createdAt:new Date().toISOString()};
     try{await Promise.race([saveBooking(newBooking),new Promise((_,r)=>setTimeout(()=>r("timeout"),8000))]);}catch(err){console.error("Save error:",err);}
-    try{const svcLabel=t.services.find(s=>s.id===newBooking.service)?.label||newBooking.service;sendNotificationEmail(newBooking,svcLabel);}catch(err){console.error("Email error:",err);}
     setConfirmedBooking(newBooking);
     setBookingState("done");
     setNotification({data:newBooking});
