@@ -185,7 +185,7 @@ export default function App() {
     for(let d=1;d<=daysInMonth;d++){
       const date=new Date(year,month,d),past=isPast(date),wknd=date.getDay()===0||date.getDay()===6;
       const isSel=selectedDate&&date.toDateString()===selectedDate.toDateString(),isTod=isToday(date);
-      const ds=toLocalDateStr(date),hasBlockAll=blocks.some(b=>b.date===ds&&b.allDay),disabled=past||wknd||hasBlockAll;
+      const ds=toLocalDateStr(date),hasBlockAll=blocks.some(b=>b.date===ds&&b.allDay),disabled=past||wknd||hasBlockAll||isHoliday(date);
       const slots=!disabled?generateSlots(date,blocks):[],bkd=bookings.filter(b=>b.date===ds);
       const avail=slots.filter(s=>!bkd.some(bs=>bs.slot.start===s.start)),full=!disabled&&avail.length===0,hasA=!disabled&&!full&&avail.length>0;
       cells.push(
